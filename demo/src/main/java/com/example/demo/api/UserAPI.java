@@ -47,8 +47,8 @@ public class UserAPI implements TestRestControllerInterface {
     }
 
     @RequestMapping(value = "getAllUsers", method = RequestMethod.GET)
-    public List<UserModelEntity> getAllUsers(){
-        List<UserModelEntity> allUsers = userModelService.getAllUsers();
+    public List<UserModel> getAllUsers(){
+        List<UserModel> allUsers = userModelService.getAllUsers();
         return allUsers;
     }
 
