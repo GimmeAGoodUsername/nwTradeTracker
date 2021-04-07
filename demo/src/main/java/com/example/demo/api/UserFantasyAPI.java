@@ -8,15 +8,16 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class UserFantasyAPI {
-    private String uri="http://localhost:9001/test/genUser";
+  private String uri = "http://localhost:9001/test/genUser";
 
-    private RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+  private RestTemplate restTemplate() {
+    return new RestTemplate();
+  }
 
-    public UserModel call_generateUser(String name) {
-        ResponseEntity<UserModel> userModel = restTemplate().postForEntity(uri + "",name, UserModel.class);
-        assert userModel.getStatusCode().equals(HttpStatus.OK) : "Error in HTTP response";
-        return userModel.getBody();
-    }
+  public UserModel call_generateUser(String name) {
+    ResponseEntity<UserModel> userModel =
+        restTemplate().postForEntity(uri + "", name, UserModel.class);
+    assert userModel.getStatusCode().equals(HttpStatus.OK) : "Error in HTTP response";
+    return userModel.getBody();
+  }
 }

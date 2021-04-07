@@ -1,6 +1,5 @@
 package com.example.demo.jpa.model;
 
-
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
@@ -10,54 +9,60 @@ import javax.persistence.Table;
 import java.util.UUID;
 
 @Entity
-@Table(name ="USERMODEL")
+@Table(name = "USERMODEL")
 public class UserModelEntity {
-    @Id
-    @Type(type="uuid-char")
-    private UUID uuid;
-    private String name;
-    private String email;
+  @Id
+  @Type(type = "uuid-char")
+  private UUID uuid;
 
-    public UserModelEntity(UUID uuid, String name, String mail) {
-        this.uuid = uuid;
-        this.name = name;
-        this.email = mail;
-    }
+  private String name;
+  private String email;
 
-    public UserModelEntity() {
-        super();
-    }
+  public UserModelEntity(UUID uuid, String name, String mail) {
+    this.uuid = uuid;
+    this.name = name;
+    this.email = mail;
+  }
 
-    public UUID getUuid() {
-        return uuid;
-    }
+  public UserModelEntity() {
+    super();
+  }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
+  public UUID getUuid() {
+    return uuid;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setUuid(UUID uuid) {
+    this.uuid = uuid;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    @Override
-    public String toString() {
-        return "UserModel{" +
-                "uuid=" + uuid +
-                ", name='" + name + '\'' +
-                ", mail='" + email + '\'' +
-                '}';
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  @Override
+  public String toString() {
+    return "UserModel{"
+        + "uuid="
+        + uuid
+        + ", name='"
+        + name
+        + '\''
+        + ", mail='"
+        + email
+        + '\''
+        + '}';
+  }
 }

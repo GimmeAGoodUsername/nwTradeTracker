@@ -9,13 +9,13 @@ import org.springframework.web.context.annotation.RequestScope;
 @RequestScope
 public class UserConverter implements ConverterInterface<UserModelEntity, UserModel> {
 
-    @Override
-    public UserModelEntity convertToEntity(UserModel m) {
-        return new UserModelEntity(m.getUuid(),m.getName(), m.getMail());
-    }
+  @Override
+  public UserModelEntity convertToEntity(UserModel m) {
+    return new UserModelEntity(m.getUuid(), m.getName(), m.getMail());
+  }
 
-    @Override
-    public UserModel convertToModel(UserModelEntity e) {
-        return new UserModel(e.getUuid(),e.getName(),e.getEmail());
-    }
+  @Override
+  public UserModel convertToModel(UserModelEntity e) {
+    return new UserModel(e.getUuid(), e.getName(), e.getEmail());
+  }
 }
