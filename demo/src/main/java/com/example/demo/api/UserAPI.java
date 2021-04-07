@@ -2,6 +2,8 @@ package com.example.demo.api;
 
 
 import com.example.demo.interfaces.TestRestControllerInterface;
+import com.example.demo.jpa.business.UserModelService;
+import com.example.demo.jpa.model.UserModelEntity;
 import com.example.demo.model.UserModel;
 import com.example.demo.service.UserService;
 import com.example.demo.test.TestObject;
@@ -17,6 +19,8 @@ import java.util.List;
 public class UserAPI implements TestRestControllerInterface {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserModelService userModelService;
 
     @Autowired
     private UserFantasyAPI userFantasyAPI;
@@ -43,8 +47,9 @@ public class UserAPI implements TestRestControllerInterface {
     }
 
     @RequestMapping(value = "getAllUsers", method = RequestMethod.GET)
-    public List<UserModel> getAllUsers(){
-        return userService.getUserModelList();
+    public List<UserModelEntity> getAllUsers(){
+        List<UserModelEntity> allUsers = userModelService.getAllUsers();
+        return allUsers;
     }
 
 }

@@ -6,4 +6,4 @@ CREATE TABLE UserModel(
     email VARCHAR(255) NOT NULL
 );
 
-INSERT INTO UserModel (uuid, name, email) VALUES ('TESTUUID','Testname','TestMail');
+INSERT INTO UserModel (uuid, name, email) VALUES ('115ad656-7caa-4c4d-be3e-8d2f53cd429e','Testname','TestMail');
