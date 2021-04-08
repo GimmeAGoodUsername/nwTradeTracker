@@ -3,10 +3,10 @@ package com.example.demo.api;
 import com.example.demo.model.UserModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
 
-@Service
+@Controller
 public class UserFantasyAPI {
   private String uri = "http://localhost:9001/test/genUser";
 

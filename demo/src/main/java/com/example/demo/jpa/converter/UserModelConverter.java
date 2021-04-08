@@ -7,7 +7,7 @@ import org.springframework.web.context.annotation.RequestScope;
 
 @Component
 @RequestScope
-public class UserConverter implements ConverterInterface<UserModelEntity, UserModel> {
+public class UserModelConverter implements ConverterInterface<UserModelEntity, UserModel> {
 
   @Override
   public UserModelEntity convertToEntity(UserModel m) {

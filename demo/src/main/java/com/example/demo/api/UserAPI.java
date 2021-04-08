@@ -15,11 +15,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/test/")
-public class UserAPI implements TestRestControllerInterface {
+public class UserAPI {
 
-  @Autowired private UserService userService;
-  @Autowired private UserModelService userModelService;
-  @Autowired private UserFantasyAPI userFantasyAPI;
+  private UserService userService;
+  private UserModelService userModelService;
+  private UserFantasyAPI userFantasyAPI;
+
+  @Autowired
+  public UserAPI(
+      UserService userService, UserModelService userModelService, UserFantasyAPI userFantasyAPI) {
+    this.userService = userService;
+    this.userModelService = userModelService;
+    this.userFantasyAPI = userFantasyAPI;
+  }
 
   @RequestMapping(value = "hey", method = RequestMethod.GET)
   public TestObject getMessage() {
@@ -38,7 +46,7 @@ public class UserAPI implements TestRestControllerInterface {
     System.out.println(test);
   }
 
-  @RequestMapping(value = "genUser", method = RequestMethod.GET)
+  @RequestMapping(value = "genUser", method = RequestMethod.POST, produces = "application/json")
   public UserModel generateUser(@RequestBody String name) {
     UserModel userModel = userFantasyAPI.call_generateUser(name);
     userService.addUser(userModel);
@@ -48,6 +56,12 @@ public class UserAPI implements TestRestControllerInterface {
   @RequestMapping(value = "getAllUsers", method = RequestMethod.GET)
   public List<UserModel> getAllUsers() {
     List<UserModel> allUsers = userModelService.getAllUsers();
+    return allUsers;
+  }
+
+  @RequestMapping(value = "getAllUsersByMail", method = RequestMethod.GET)
+  public List<UserModel> getAllUsersByMail(@RequestBody String mail) {
+    List<UserModel> allUsers = userModelService.getAllUsersByMail(mail);
     return allUsers;
   }
 }

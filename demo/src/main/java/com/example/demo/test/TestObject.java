@@ -9,6 +9,9 @@ public class TestObject {
     this.age = age;
   }
 
+  public TestObject() {
+  }
+
   public String getName() {
     return name;
   }
