@@ -9,6 +9,6 @@ import java.util.UUID;
 public class FantasyUserGenerator {
 
     public UserModel generateUser(String name) {
-        return new UserModel(UUID.randomUUID(), name, name + "@fruehlingsStiefel.de");
+        return new UserModel(UUID.randomUUID(), name, name + "@+.de");
     }
 }
