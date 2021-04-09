@@ -1,16 +1,13 @@
 package com.example.demo.api;
 
 import com.example.demo.DemoApplication;
-import com.example.demo.jpa.business.UserModelService;
 import com.example.demo.model.UserModel;
 import com.example.demo.service.UserService;
 import com.example.demo.test.TestObject;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
