@@ -15,9 +15,13 @@ public class UserFantasyAPI {
   }
 
   public UserModel call_generateUser(String name) {
-    ResponseEntity<UserModel> userModel =
-        restTemplate().postForEntity(uri + "", name, UserModel.class);
+    ResponseEntity<UserModel> userModel = callFantasyAPI(name);
+
     assert userModel.getStatusCode().equals(HttpStatus.OK) : "Error in HTTP response";
     return userModel.getBody();
+  }
+
+  ResponseEntity<UserModel> callFantasyAPI(String name){
+    return restTemplate().postForEntity(uri + "", name, UserModel.class);
   }
 }

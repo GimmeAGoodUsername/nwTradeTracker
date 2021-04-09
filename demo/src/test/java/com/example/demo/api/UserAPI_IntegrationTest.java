@@ -5,55 +5,45 @@ import com.example.demo.jpa.business.UserModelService;
 import com.example.demo.model.UserModel;
 import com.example.demo.service.UserService;
 import com.example.demo.test.TestObject;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(
     classes = {DemoApplication.class, UserAPI.class},
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserAPI_IntegrationTest {
-  @MockBean private UserService userService;
-  @MockBean private UserModelService userModelService;
-  @MockBean private UserFantasyAPI userFantasyAPI;
-  @Autowired private WebApplicationContext webApplicationContext;
-
-  @InjectMocks private UserAPI subject;
-
+  @SpyBean UserFantasyAPI userFantasyAPI;
   @LocalServerPort private int port;
 
+  @Autowired UserService userService;
   private UserModel sus = new UserModel(UUID.randomUUID(), "Test", "Test");
-
-  @BeforeEach
-  void setup() {
-    Mockito.when(userFantasyAPI.call_generateUser(Mockito.anyString())).thenReturn(sus);
-    Mockito.doNothing().when(userService).addUser(Mockito.any(UserModel.class));
-    MockitoAnnotations.openMocks(this);
-    this.subject = new UserAPI(userService, userModelService, userFantasyAPI);
-  }
 
   @Test
   void test_genUser() {
+    Mockito.doReturn(generateResponeEntity(HttpStatus.OK))
+        .when(userFantasyAPI)
+        .callFantasyAPI(Mockito.anyString());
 
     ResponseEntity<UserModel> userModel =
         restTemplate().postForEntity(buildUriString("/test/genUser"), "Test", UserModel.class);
     assertEquals(sus.getUuid(), userModel.getBody().getUuid());
+    assertFalse(userService.getUserModelList().isEmpty());
+    Mockito.verify(userFantasyAPI, Mockito.times(1)).call_generateUser(Mockito.anyString());
   }
 
   @Test
@@ -75,6 +65,10 @@ public class UserAPI_IntegrationTest {
   }
 
   private String buildUriString(String path) {
-    return "http://localhost:" + port + path;
+    return "http://localhost:" + this.port + path;
+  }
+
+  private ResponseEntity<UserModel> generateResponeEntity(HttpStatus status) {
+    return new ResponseEntity<UserModel>(sus, status);
   }
 }

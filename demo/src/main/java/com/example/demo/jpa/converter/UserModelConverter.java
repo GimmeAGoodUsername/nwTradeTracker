@@ -3,10 +3,8 @@ package com.example.demo.jpa.converter;
 import com.example.demo.jpa.model.UserModelEntity;
 import com.example.demo.model.UserModel;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.RequestScope;
 
 @Component
-@RequestScope
 public class UserModelConverter implements ConverterInterface<UserModelEntity, UserModel> {
 
   @Override

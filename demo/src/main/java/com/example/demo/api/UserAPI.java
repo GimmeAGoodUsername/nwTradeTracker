@@ -1,8 +1,6 @@
 package com.example.demo.api;
 
-import com.example.demo.interfaces.TestRestControllerInterface;
 import com.example.demo.jpa.business.UserModelService;
-import com.example.demo.jpa.model.UserModelEntity;
 import com.example.demo.model.UserModel;
 import com.example.demo.service.UserService;
 import com.example.demo.test.TestObject;
