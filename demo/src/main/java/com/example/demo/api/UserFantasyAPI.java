@@ -21,7 +21,7 @@ public class UserFantasyAPI {
     return userModel.getBody();
   }
 
-  ResponseEntity<UserModel> callFantasyAPI(String name){
+  ResponseEntity<UserModel> callFantasyAPI(String name) {
     return restTemplate().postForEntity(uri + "", name, UserModel.class);
   }
 }

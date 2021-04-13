@@ -1,7 +1,14 @@
 package com.example.demo.test;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class TestObject {
+
+  @NotBlank
+  @Size(min = 0, max = 20)
   private String name;
+
   private int age;
 
   public TestObject(String name, int age) {
