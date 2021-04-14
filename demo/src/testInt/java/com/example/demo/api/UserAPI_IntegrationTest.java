@@ -4,6 +4,7 @@ import com.example.demo.DemoApplication;
 import com.example.demo.model.UserModel;
 import com.example.demo.service.UserService;
 import com.example.demo.test.TestObject;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(
     classes = {DemoApplication.class, UserAPI.class},
@@ -38,8 +38,8 @@ public class UserAPI_IntegrationTest {
 
     ResponseEntity<UserModel> userModel =
         restTemplate().postForEntity(buildUriString("/test/genUser"), "Test", UserModel.class);
-    assertEquals(sus.getUuid(), userModel.getBody().getUuid());
-    assertFalse(userService.getUserModelList().isEmpty());
+    Assertions.assertEquals(sus.getUuid(), userModel.getBody().getUuid());
+    Assertions.assertFalse(userService.getUserModelList().isEmpty());
     Mockito.verify(userFantasyAPI, Mockito.times(1)).call_generateUser(Mockito.anyString());
   }
 
@@ -48,8 +48,8 @@ public class UserAPI_IntegrationTest {
 
     ResponseEntity<TestObject> userModel =
         restTemplate().getForEntity(buildUri("/test/hey"), TestObject.class);
-    assertNotNull(userModel.getBody());
-    assertEquals(userModel.getBody().getName(), "Lineas");
+    Assertions.assertNotNull(userModel.getBody());
+    Assertions.assertEquals(userModel.getBody().getName(), "Lineas");
   }
 
   private RestTemplate restTemplate() {

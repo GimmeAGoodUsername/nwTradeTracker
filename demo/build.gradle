@@ -2,11 +2,20 @@ plugins {
     id 'org.springframework.boot' version '2.4.4'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'idea'
+    id 'groovy'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
+
+bootJar {
+
+    def s  = 'CloudTest'
+    archiveVersion = '0.0.1-SNAPSHOT'
+    archivesBaseName = s + '-' + archiveVersion
+}
 
 repositories {
     mavenCentral()
@@ -20,8 +29,46 @@ dependencies {
     implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.7'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
 }
 
 test {
     useJUnitPlatform()
 }
+
+configurations {
+    providedRuntime
+    testIntImplementation.extendsFrom testImplementation
+    testIntRuntime.extendsFrom testRuntimeOnly
+}
+
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+    testInt {
+        java {
+            compileClasspath += sourceSets.main.output + sourceSets.test.output
+            runtimeClasspath += sourceSets.main.output + sourceSets.test.output
+            srcDirs file('src/testInt/java')
+        }
+        resources {
+            srcDirs file('src/testInt/resources')
+        }
+    }
+}
+
+task testInt(type: Test) {
+    useJUnitPlatform()
+    testClassesDirs = sourceSets.testInt.output.classesDirs
+    classpath = sourceSets.testInt.runtimeClasspath
+}
+
+check.dependsOn testInt
+testInt.mustRunAfter test

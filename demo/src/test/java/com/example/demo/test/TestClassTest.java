@@ -9,8 +9,8 @@ class TestClassTest {
     private TestClass subject = new TestClass();
 
     @ParameterizedTest
-    @ValueSource(ints = {11,4,3,54,5123,123,123,123,123,54, Integer.MAX_VALUE},strings = {""})
-    void add_test(int number, String s){
+    @ValueSource(ints = {11,4,3,54,5123,123,123,123,123,54, Integer.MAX_VALUE})
+    void add_test(int number){
         System.out.println(number);
         assertTrue(subject.add(number)==(number+1));
     }
